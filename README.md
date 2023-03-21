@@ -1,6 +1,7 @@
 # AngularFolderStructure
-
+Angular Version 15
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+This Angular Template includes Tailwindcss,Material
 
 ## Development server
 
