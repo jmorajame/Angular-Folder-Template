@@ -1,0 +1,23 @@
+pipelines:
+  branches:
+    master:
+    - step:
+        size: 2x
+        services:
+          - docker
+        caches:
+          - docker
+        script:
+          - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+          - docker build -f Dockerfile  -t 71dev/ชื่อในdockerhub:dev .
+          - docker push 71dev/ชื่อในdockerhub:dev
+    - step:
+        name: Deploy to kubernates
+        image: atlassian/pipelines-kubectl
+        script:
+          - echo $KUBE_CONFIG | base64 -d > kubeconfig
+          - kubectl --insecure-skip-tls-verify  --kubeconfig=kubeconfig  rollout restart deployment/ชื่อdeploymentในk8s -n ชื่อnamepsaceในk8s
+definitions:
+  services:
+    docker:
+      memory: 7128
